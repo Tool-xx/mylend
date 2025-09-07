@@ -148,6 +148,26 @@
             color: var(--accent);
         }
         
+        /* Mobile menu */
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 25px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+        
+        .mobile-menu-btn span {
+            width: 30px;
+            height: 2px;
+            background-color: var(--white);
+            transition: all 0.3s linear;
+        }
+        
         /* Hero Section */
         .hero {
             padding: 160px 0 100px;
@@ -416,29 +436,48 @@
         }
         
         /* Responsive */
-        @media (max-width: 768px) {
+        @media (max-width: 992px) {
             .hero h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
             
             .step {
                 width: 48%;
+                margin-bottom: 40px;
             }
             
+            .process-steps {
+                justify-content: space-around;
+            }
+        }
+        
+        @media (max-width: 768px) {
             .nav-links {
                 display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: flex;
             }
             
             .service-icon {
                 font-size: 2rem;
             }
-        }
-        
-        @media (max-width: 480px) {
+            
             .hero {
                 padding: 140px 0 80px;
             }
             
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .services, .experience, .process, .contact {
+                padding: 60px 0;
+            }
+        }
+        
+        @media (max-width: 576px) {
             .step {
                 width: 100%;
             }
@@ -454,6 +493,92 @@
             .hero-icon {
                 font-size: 2.5rem;
             }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.1rem;
+            }
+            
+            .services-grid {
+                gap: 20px;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .language-selector {
+                margin-top: 15px;
+            }
+        }
+
+        /* Mobile menu styles */
+        .mobile-menu {
+            position: fixed;
+            top: 70px;
+            right: -100%;
+            width: 80%;
+            height: calc(100vh - 70px);
+            background-color: var(--dark-gray);
+            transition: right 0.3s ease;
+            z-index: 999;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .mobile-menu.show {
+            right: 0;
+        }
+        
+        .mobile-nav-links {
+            list-style: none;
+        }
+        
+        .mobile-nav-links li {
+            margin-bottom: 20px;
+        }
+        
+        .mobile-nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .mobile-nav-links a i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+        
+        .mobile-language-selector {
+            margin-top: 30px;
+        }
+        
+        .mobile-language-options {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .mobile-language-option {
+            padding: 8px 15px;
+            background-color: var(--gray);
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .mobile-language-option.active {
+            background-color: var(--accent);
+            color: var(--black);
         }
     </style>
 </head>
@@ -482,9 +607,32 @@
                         <div class="language-option" data-lang="de"><i class="fas fa-check"></i>Deutsch</div>
                     </div>
                 </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
         </div>
     </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <ul class="mobile-nav-links">
+            <li><a href="#services" id="mobileServicesLink"><i class="fas fa-briefcase"></i><span data-translate="nav_services">Услуги</span></a></li>
+            <li><a href="#experience" id="mobileExperienceLink"><i class="fas fa-star"></i><span data-translate="nav_experience">Опыт</span></a></li>
+            <li><a href="#process" id="mobileProcessLink"><i class="fas fa-gears"></i><span data-translate="nav_process">Процесс</span></a></li>
+            <li><a href="#contact" id="mobileContactLink"><i class="fas fa-phone"></i><span data-translate="nav_contact">Контакты</span></a></li>
+        </ul>
+        <div class="mobile-language-selector">
+            <p>Язык:</p>
+            <div class="mobile-language-options">
+                <div class="mobile-language-option active" data-lang="ru">RU</div>
+                <div class="mobile-language-option" data-lang="en">EN</div>
+                <div class="mobile-language-option" data-lang="de">DE</div>
+            </div>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -492,8 +640,8 @@
             <div class="hero-icon">
                 <i class="fas fa-balance-scale-left"></i>
             </div>
-            <h1 data-translate="hero_title">Kimono: Эксперт по международному праву нового поколения</h1>
-            <p data-translate="hero_desc">Современные решения по легализации доходов, стратегическое консультирование и работа с правовыми системами различных юрисдикций. Решаем задачи любой сложности в 2025 году.</p>
+            <h1 data-translate="hero_title">Kimono: Эксперт по международному праву</h1>
+            <p data-translate="hero_desc">Легализация доходов, стратегическое консультирование и работа с правовыми системами различных юрисдикций. Решаем задачи любой сложности.</p>
         </div>
     </section>
 
@@ -507,21 +655,21 @@
                         <i class="fas fa-file-contract"></i>
                     </div>
                     <h3><i class="fas fa-minus"></i><span data-translate="service1_title">Легализация доходов</span></h3>
-                    <p data-translate="service1_desc">Современные методы легализации доходов из различных источников с учетом актуального международного законодательства 2025 года.</p>
+                    <p data-translate="service1_desc">Комплексные решения по легализации доходов из различных источников с учетом международного законодательства.</p>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-handshake"></i>
                     </div>
                     <h3><i class="fas fa-minus"></i><span data-translate="service2_title">Стратегическое консультирование</span></h3>
-                    <p data-translate="service2_desc">Экспертная оценка ситуаций и разработка стратегий с учетом законодательств разных стран и современных реалий 2025 года.</p>
+                    <p data-translate="service2_desc">Экспертная оценка ситуаций и разработка стратегий с учетом законодательств разных стран.</p>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-globe"></i>
                     </div>
                     <h3><i class="fas fa-minus"></i><span data-translate="service3_title">Международное право</span></h3>
-                    <p data-translate="service3_desc">Глубокая работа с правовыми системами различных государств и международными нормативами в условиях цифровой трансформации 2025 года.</p>
+                    <p data-translate="service3_desc">Глубокая работа с правовыми системами различных государств и международными нормативами.</p>
                 </div>
             </div>
         </div>
@@ -533,8 +681,8 @@
             <h2 class="section-title"><i class="fas fa-star"></i><span data-translate="experience_title">Опыт</span></h2>
             <div class="experience-content">
                 <p><i class="fas fa-arrow-right"></i><span data-translate="experience_text1">С большим опытом работы в международной юридической сфере, я специализируюсь на решении комплексных задач, связанных с легализацией доходов и трансграничным правом.</span></p>
-                <p><i class="fas fa-arrow-right"></i><span data-translate="experience_text2">Моя практика охватывает широкий спектр юрисдикций, что позволяет находить нестандартные решения для самых требовательных клиентов в 2025 году.</span></p>
-                <p><i class="fas fa-arrow-right"></i><span data-translate="experience_text3">Я работал с делами различной сложности в десятках стран мира, что дало уникальный опыт и понимание тонкостей современного международного законодательства.</span></p>
+                <p><i class="fas fa-arrow-right"></i><span data-translate="experience_text2">Моя практика охватывает широкий спектр юрисдикций, что позволяет находить нестандартные решения для самых требовательных клиентов.</span></p>
+                <p><i class="fas fa-arrow-right"></i><span data-translate="experience_text3">Я работал с делами различной сложности в десятках стран мира, что дало уникальный опыт и понимание тонкостей международного законодательства.</span></p>
             </div>
         </div>
     </section>
@@ -557,12 +705,12 @@
                 <div class="step">
                     <div class="step-number">3</div>
                     <h3><i class="fas fa-cogs"></i><span data-translate="step3_title">Реализация</span></h3>
-                    <p data-translate="step3_desc">Воплощение плана с учетом всех юридических нюансов и требований 2025 года</p>
+                    <p data-translate="step3_desc">Воплощение плана с учетом всех юридических нюансов</p>
                 </div>
                 <div class="step">
                     <div class="step-number">4</div>
                     <h3><i class="fas fa-trophy"></i><span data-translate="step4_title">Результат</span></h3>
-                    <p data-translate="step4_desc">Достижение поставленных целей с максимальной эффективностью и конфиденциальностью</p>
+                    <p data-translate="step4_desc">Достижение поставленных целей с максимальной эффективностью</p>
                 </div>
             </div>
         </div>
@@ -575,7 +723,7 @@
                 <i class="fas fa-paper-plane"></i>
             </div>
             <h2 class="section-title"><i class="fas fa-phone"></i><span data-translate="contact_title">Контакты</span></h2>
-            <p data-translate="contact_text">Свяжитесь со мной через Telegram для консультации в 2025 году</p>
+            <p data-translate="contact_text">Свяжитесь со мной через Telegram для консультации</p>
             <a href="https://t.me/exras" class="telegram-link" id="telegramLink">
                 <i class="fab fa-telegram"></i>
                 <span data-translate="telegram_button">Написать в Telegram</span>
@@ -601,15 +749,51 @@
         const languageSelector = document.getElementById('languageSelector');
         const languageDropdown = document.getElementById('languageDropdown');
         const telegramLink = document.getElementById('telegramLink');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
         
         languageSelector.addEventListener('click', function() {
             languageDropdown.classList.toggle('show');
+        });
+        
+        // Mobile menu functionality
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('show');
+        });
+        
+        // Close mobile menu when clicking on links
+        document.querySelectorAll('.mobile-nav-links a').forEach(link => {
+            link.addEventListener('click', function() {
+                mobileMenu.classList.remove('show');
+            });
+        });
+        
+        // Mobile language selection
+        document.querySelectorAll('.mobile-language-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const lang = this.getAttribute('data-lang');
+                changeLanguage(lang);
+                
+                // Update active state
+                document.querySelectorAll('.mobile-language-option').forEach(opt => {
+                    opt.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Update desktop language selector
+                document.querySelector('.current-language span').textContent = lang.toUpperCase();
+            });
         });
         
         // Close dropdown when clicking outside
         document.addEventListener('click', function(event) {
             if (!languageSelector.contains(event.target)) {
                 languageDropdown.classList.remove('show');
+            }
+            
+            // Close mobile menu when clicking outside
+            if (!mobileMenu.contains(event.target) && !mobileMenuBtn.contains(event.target) && mobileMenu.classList.contains('show')) {
+                mobileMenu.classList.remove('show');
             }
         });
         
@@ -620,96 +804,96 @@
                 'nav_experience': 'Опыт',
                 'nav_process': 'Процесс',
                 'nav_contact': 'Контакты',
-                'hero_title': 'Kimono: Эксперт по международному праву нового поколения',
-                'hero_desc': 'Современные решения по легализации доходов, стратегическое консультирование и работа с правовыми системами различных юрисдикций. Решаем задачи любой сложности в 2025 году.',
+                'hero_title': 'Kimono: Эксперт по международному праву',
+                'hero_desc': 'Легализация доходов, стратегическое консультирование и работа с правовыми системами различных юрисдикций. Решаем задачи любой сложности.',
                 'services_title': 'Услуги',
                 'service1_title': 'Легализация доходов',
-                'service1_desc': 'Современные методы легализации доходов из различных источников с учетом актуального международного законодательства 2025 года.',
+                'service1_desc': 'Комплексные решения по легализации доходов из различных источников с учетом международного законодательства.',
                 'service2_title': 'Стратегическое консультирование',
-                'service2_desc': 'Экспертная оценка ситуаций и разработка стратегий с учетом законодательств разных стран и современных реалий 2025 года.',
+                'service2_desc': 'Экспертная оценка ситуаций и разработка стратегий с учетом законодательств разных стран.',
                 'service3_title': 'Международное право',
-                'service3_desc': 'Глубокая работа с правовыми системами различных государств и международными нормативами в условиях цифровой трансформации 2025 года.',
+                'service3_desc': 'Глубокая работа с правовыми системами различных государств и международными нормативами.',
                 'experience_title': 'Опыт',
                 'experience_text1': 'С большим опытом работы в международной юридической сфере, я специализируюсь на решении комплексных задач, связанных с легализацией доходов и трансграничным правом.',
-                'experience_text2': 'Моя практика охватывает широкий спектр юрисдикций, что позволяет находить нестандартные решения для самых требовательных клиентов в 2025 году.',
-                'experience_text3': 'Я работал с делами различной сложности в десятках стран мира, что дало уникальный опыт и понимание тонкостей современного международного законодательства.',
+                'experience_text2': 'Моя практика охватывает широкий спектр юрисдикций, что позволяет находить нестандартные решения для самых требовательных клиентов.',
+                'experience_text3': 'Я работал с делами различной сложности в десятках стран мира, что дало уникальный опыт и понимание тонкостей международного законодательства.',
                 'process_title': 'Процесс работы',
                 'step1_title': 'Анализ',
                 'step1_desc': 'Всестороннее изучение ситуации и определение оптимального подхода',
                 'step2_title': 'Стратегия',
                 'step2_desc': 'Разработка индивидуальной стратегии с учетом современных реалий',
                 'step3_title': 'Реализация',
-                'step3_desc': 'Воплощение плана с учетом всех юридических нюансов и требований 2025 года',
+                'step3_desc': 'Воплощение плана с учетом всех юридических нюансов',
                 'step4_title': 'Результат',
-                'step4_desc': 'Достижение поставленных целей с максимальной эффективностью и конфиденциальностью',
+                'step4_desc': 'Достижение поставленных целей с максимальной эффективностью',
                 'contact_title': 'Контакты',
-                'contact_text': 'Свяжитесь со мной через Telegram для консультации в 2025 году',
+                'contact_text': 'Свяжитесь со мной через Telegram для консультации',
                 'telegram_button': 'Написать в Telegram',
-                'copyright': '© 2025 Kimono. Все права защищены.'
+                'copyright': ' 2025 Kimono. Все права защищены.'
             },
             'en': {
                 'nav_services': 'Services',
                 'nav_experience': 'Experience',
                 'nav_process': 'Process',
                 'nav_contact': 'Contact',
-                'hero_title': 'Kimono: New Generation International Law Expert',
-                'hero_desc': 'Modern income legalization solutions, strategic consulting and work with legal systems of various jurisdictions. Solving tasks of any complexity in 2025.',
+                'hero_title': 'Kimono: International Law Expert',
+                'hero_desc': 'Income legalization, strategic consulting and work with legal systems of various jurisdictions. Solving tasks of any complexity.',
                 'services_title': 'Services',
                 'service1_title': 'Income Legalization',
-                'service1_desc': 'Modern methods of legalizing income from various sources, taking into account current international legislation in 2025.',
+                'service1_desc': 'Comprehensive solutions for legalizing income from various sources, taking into account international legislation.',
                 'service2_title': 'Strategic Consulting',
-                'service2_desc': 'Expert assessment of situations and development of strategies taking into account the laws of different countries and modern realities of 2025.',
+                'service2_desc': 'Expert assessment of situations and development of strategies taking into account the laws of different countries.',
                 'service3_title': 'International Law',
-                'service3_desc': 'In-depth work with legal systems of various states and international regulations in the context of digital transformation in 2025.',
+                'service3_desc': 'In-depth work with legal systems of various states and international regulations.',
                 'experience_title': 'Experience',
                 'experience_text1': 'With extensive experience in the international legal field, I specialize in solving complex problems related to income legalization and cross-border law.',
-                'experience_text2': 'My practice covers a wide range of jurisdictions, which allows me to find non-standard solutions for the most demanding clients in 2025.',
-                'experience_text3': 'I have worked with cases of varying complexity in dozens of countries around the world, which has given me unique experience and understanding of the intricacies of modern international law.',
+                'experience_text2': 'My practice covers a wide range of jurisdictions, which allows me to find non-standard solutions for the most demanding clients.',
+                'experience_text3': 'I have worked with cases of varying complexity in dozens of countries around the world, which has given me unique experience and understanding of the intricacies of international law.',
                 'process_title': 'Working Process',
                 'step1_title': 'Analysis',
                 'step1_desc': 'Comprehensive study of the situation and determination of the optimal approach',
                 'step2_title': 'Strategy',
                 'step2_desc': 'Development of an individual strategy taking into account modern realities',
                 'step3_title': 'Implementation',
-                'step3_desc': 'Implementation of the plan taking into account all legal nuances and requirements of 2025',
+                'step3_desc': 'Implementation of the plan taking into account all legal nuances',
                 'step4_title': 'Result',
-                'step4_desc': 'Achieving set goals with maximum efficiency and confidentiality',
+                'step4_desc': 'Achieving set goals with maximum efficiency',
                 'contact_title': 'Contacts',
-                'contact_text': 'Contact me via Telegram for consultation in 2025',
+                'contact_text': 'Contact me via Telegram for consultation',
                 'telegram_button': 'Write to Telegram',
-                'copyright': '© 2025 Kimono. All rights reserved.'
+                'copyright': ' 2025 Kimono. All rights reserved.'
             },
             'de': {
                 'nav_services': 'Dienstleistungen',
                 'nav_experience': 'Erfahrung',
                 'nav_process': 'Prozess',
                 'nav_contact': 'Kontakte',
-                'hero_title': 'Kimono: Experte für internationales Recht der neuen Generation',
-                'hero_desc': 'Moderne Lösungen zur Einkommenslegalisierung, strategische Beratung und Arbeit mit Rechtssystemen verschiedener Gerichtsbarkeiten. Lösung von Aufgaben jeglicher Komplexität im Jahr 2025.',
+                'hero_title': 'Kimono: Experte für internationales Recht',
+                'hero_desc': 'Einkommenslegalisierung, strategische Beratung und Arbeit mit Rechtssystemen verschiedener Gerichtsbarkeiten. Lösung von Aufgaben jeglicher Komplexität.',
                 'services_title': 'Dienstleistungen',
                 'service1_title': 'Einkommenslegalisierung',
-                'service1_desc': 'Moderne Methoden zur Legalisierung von Einkommen aus verschiedenen Quellen unter Berücksichtigung der aktuellen internationalen Gesetzgebung im Jahr 2025.',
+                'service1_desc': 'Umfassende Lösungen zur Legalisierung von Einkommen aus verschiedenen Quellen unter Berücksichtigung internationaler Rechtsvorschriften.',
                 'service2_title': 'Strategische Beratung',
-                'service2_desc': 'Expertenbewertung von Situationen und Entwicklung von Strategien unter Berücksichtigung der Gesetze verschiedener Länder und moderner Realitäten des Jahres 2025.',
+                'service2_desc': 'Expertenbewertung von Situationen und Entwicklung von Strategien unter Berücksichtigung der Gesetze verschiedener Länder.',
                 'service3_title': 'Internationales Recht',
-                'service3_desc': 'Tiefgehende Arbeit mit Rechtssystemen verschiedener Staaten und internationalen Vorschriften im Kontext der digitalen Transformation im Jahr 2025.',
+                'service3_desc': 'Tiefgehende Arbeit mit Rechtssystemen verschiedener Staaten und internationalen Vorschriften.',
                 'experience_title': 'Erfahrung',
                 'experience_text1': 'Mit umfangreicher Erfahrung im internationalen Rechtsbereich spezialisiere ich mich auf die Lösung komplexer Probleme im Zusammenhang mit Einkommenslegalisierung und grenzüberschreitendem Recht.',
-                'experience_text2': 'Meine Praxis umfasst ein breites Spektrum von Rechtsordnungen, was mir ermöglicht, nicht standardmäßige Lösungen für die anspruchsvollsten Kunden im Jahr 2025 zu finden.',
-                'experience_text3': 'Ich habe mit Fällen unterschiedlicher Komplexität in Dutzenden von Ländern auf der ganzen Welt gearbeitet, was mir einzigartige Erfahrungen und ein Verständnis für die Feinheiten des modernen internationalen Rechts vermittelt hat.',
+                'experience_text2': 'Meine Praxis umfasst ein breites Spektrum von Rechtsordnungen, was mir ermöglicht, nicht standardmäßige Lösungen für die anspruchsvollsten Kunden zu finden.',
+                'experience_text3': 'Ich habe mit Fällen unterschiedlicher Komplexität in Dutzenden von Ländern auf der ganzen Welt gearbeitet, was mir einzigartige Erfahrungen und ein Verständnis für die Feinheiten des internationalen Rechts vermittelt hat.',
                 'process_title': 'Arbeitsprozess',
                 'step1_title': 'Analyse',
                 'step1_desc': 'Umfassende Untersuchung der Situation und Bestimmung des optimalen Ansatzes',
                 'step2_title': 'Strategie',
                 'step2_desc': 'Entwicklung einer individuellen Strategie unter Berücksichtigung moderner Realitäten',
                 'step3_title': 'Umsetzung',
-                'step3_desc': 'Umsetzung des Plans unter Berücksichtigung aller rechtlichen Nuancen und Anforderungen des Jahres 2025',
+                'step3_desc': 'Umsetzung des Plans unter Berücksichtigung aller rechtlichen Nuancen',
                 'step4_title': 'Ergebnis',
-                'step4_desc': 'Erreichen der gesetzten Ziele mit maximaler Effizienz und Vertraulichkeit',
+                'step4_desc': 'Erreichen der gesetzten Ziele mit maximaler Effizienz',
                 'contact_title': 'Kontakte',
-                'contact_text': 'Kontaktieren Sie mich per Telegram für eine Beratung im Jahr 2025',
+                'contact_text': 'Kontaktieren Sie mich per Telegram für eine Beratung',
                 'telegram_button': 'In Telegram schreiben',
-                'copyright': '© 2025 Kimono. Alle Rechte vorbehalten.'
+                'copyright': ' 2025 Kimono. Alle Rechte vorbehalten.'
             }
         };
         
@@ -726,6 +910,14 @@
                     icon.style.visibility = 'hidden';
                 });
                 this.querySelector('i').style.visibility = 'visible';
+                
+                // Update mobile language selector
+                document.querySelectorAll('.mobile-language-option').forEach(opt => {
+                    opt.classList.remove('active');
+                    if (opt.getAttribute('data-lang') === lang) {
+                        opt.classList.add('active');
+                    }
+                });
             });
         });
         
