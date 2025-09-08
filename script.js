@@ -7,9 +7,6 @@ const overlay = document.getElementById('overlay');
 const topLogo = document.getElementById('topLogo');
 const footerLogo = document.getElementById('footerLogo');
 const scrollTopBtn = document.getElementById('scrollTop');
-const preloader = document.getElementById('preloader');
-const progressBar = document.querySelector('.preloader-progress-bar');
-const percentageText = document.querySelector('.preloader-percentage');
 
 // Translations object
 const translations = {
@@ -44,7 +41,7 @@ const translations = {
         'contact_title': 'Контакты',
         'contact_text': 'Свяжитесь со мной через Telegram для консультации',
         'telegram_button': 'Написать в Telegram',
-        'copyright': ' 2025 Kimono. Все права защищены.'
+        'copyright': '© 2025 Kimono. Все права защищены.'
     },
     'en': {
         'choose_language': 'Choose language:',
@@ -77,7 +74,7 @@ const translations = {
         'contact_title': 'Contacts',
         'contact_text': 'Contact me via Telegram for consultation',
         'telegram_button': 'Write to Telegram',
-        'copyright': ' 2025 Kimono. All rights reserved.'
+        'copyright': '© 2025 Kimono. All rights reserved.'
     },
     'de': {
         'choose_language': 'Sprache wählen:',
@@ -100,7 +97,7 @@ const translations = {
         'experience_text3': 'Ich habe mit Fällen unterschiedlicher Komplexität in Dutzenden von Ländern auf der ganzen Welt gearbeitet, was mir einzigartige Erfahrungen und ein Verständnis für die Feinheiten des internationalen Rechts vermittelt hat.',
         'process_title': 'Arbeitsprozess',
         'step1_title': 'Analyse',
-        'step1_desc': 'Umfassende Untersuchung der Situation и Bestimmung des optimalen Ansatzes',
+        'step1_desc': 'Umfassende Untersuchung der Situation und Bestimmung des optimalen Ansatzes',
         'step2_title': 'Strategie',
         'step2_desc': 'Entwicklung einer individuellen Strategie unter Berücksichtigung moderner Realitäten',
         'step3_title': 'Umsetzung',
@@ -110,7 +107,7 @@ const translations = {
         'contact_title': 'Kontakte',
         'contact_text': 'Kontaktieren Sie mich per Telegram für eine Beratung',
         'telegram_button': 'In Telegram schreiben',
-        'copyright': ' 2025 Kimono. Alle Rechte vorbehalten.'
+        'copyright': '© 2025 Kimono. Alle Rechte vorbehalten.'
     }
 };
 
@@ -119,33 +116,10 @@ const savedLanguage = localStorage.getItem('selectedLanguage') || 'ru';
 
 // Initialize the page
 document.addEventListener('DOMContentLoaded', function() {
-    // Start loading simulation
-    simulateLoading();
+    initializePage();
 });
 
-function simulateLoading() {
-    let progress = 0;
-    const interval = setInterval(() => {
-        progress += Math.random() * 10;
-        if (progress >= 100) {
-            progress = 100;
-            clearInterval(interval);
-            setTimeout(initializePage, 500);
-        }
-        updateProgress(progress);
-    }, 200);
-}
-
-function updateProgress(progress) {
-    progressBar.style.width = progress + '%';
-    percentageText.textContent = Math.round(progress) + '%';
-}
-
 function initializePage() {
-    // Hide preloader and show content
-    document.body.classList.add('loaded');
-    preloader.classList.add('loaded');
-    
     changeLanguage(savedLanguage);
     document.querySelector('.current-language span').textContent = savedLanguage.toUpperCase();
     
