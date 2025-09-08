@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Kimono - эксперт по международному праву. Легализация доходов, стратегическое консультирование и работа с правовыми системами различных юрисдикций.">
-    <title>Kimono</title>
+    <title>Kimono | Международное право</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
@@ -13,7 +13,7 @@
             --black: #0a0a0a;
             --dark-gray: #1a1a1a;
             --gray: #2a2a2a;
-            --light-gray: #9a9a9a; /* Улучшенная контрастность */
+            --light-gray: #9a9a9a;
             --white: #e6e6e6;
             --accent: #8a8a8a;
         }
@@ -64,10 +64,15 @@
             font-size: 1.5rem;
             letter-spacing: 1px;
             z-index: 1002;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
         }
         
         .logo-img {
-            height: 40px;
+            height: 50px; /* Увеличенный размер логотипа */
             margin-right: 10px;
         }
         
@@ -526,6 +531,35 @@
             color: var(--accent);
         }
         
+        /* Scroll to top button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--dark-gray);
+            border: 1px solid var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+        
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .scroll-top:hover {
+            background-color: var(--accent);
+        }
+        
         /* Animations */
         @keyframes pulse {
             0% { transform: scale(1); }
@@ -559,6 +593,10 @@
                 flex-direction: column;
                 gap: 20px;
             }
+            
+            .logo-img {
+                height: 45px; /* Немного уменьшим логотип на мобильных */
+            }
         }
         
         @media (max-width: 480px) {
@@ -575,7 +613,7 @@
             }
             
             .logo-img {
-                height: 30px;
+                height: 40px;
             }
             
             .hero-icon {
@@ -590,6 +628,13 @@
                 width: 100%;
                 margin-bottom: 30px;
             }
+            
+            .scroll-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
         }
     </style>
 </head>
@@ -597,7 +642,7 @@
     <!-- Header -->
     <header>
         <div class="container header-container">
-            <a href="#" class="logo">
+            <a href="#" class="logo" id="topLogo">
                 <img src="logo.png" alt="Kimono Logo" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
                 <span style="display:none;"><i class="fas fa-scale-balanced" aria-hidden="true"></i>KIMONO</span>
             </a>
@@ -645,6 +690,11 @@
         </div>
     </div>
     <div class="overlay" id="overlay"></div>
+
+    <!-- Scroll to top button -->
+    <div class="scroll-top" id="scrollTop" aria-label="Наверх">
+        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+    </div>
 
     <!-- Main Content -->
     <main>
@@ -750,7 +800,7 @@
     <footer>
         <div class="container">
             <div class="footer-content">
-                <a href="#" class="logo">
+                <a href="#" class="logo" id="footerLogo">
                     <img src="logo.png" alt="Kimono Logo" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
                     <span style="display:none;"><i class="fas fa-scale-balanced" aria-hidden="true"></i>KIMONO</span>
                 </a>
@@ -767,6 +817,9 @@
         const burgerMenu = document.getElementById('burgerMenu');
         const mobileNav = document.getElementById('mobileNav');
         const overlay = document.getElementById('overlay');
+        const topLogo = document.getElementById('topLogo');
+        const footerLogo = document.getElementById('footerLogo');
+        const scrollTopBtn = document.getElementById('scrollTop');
         
         // Load saved language or default to Russian
         const savedLanguage = localStorage.getItem('selectedLanguage') || 'ru';
@@ -842,6 +895,40 @@
             overlay.classList.remove('active');
             document.body.style.overflow = 'auto';
         }
+        
+        // Scroll to top when clicking on logo
+        topLogo.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        footerLogo.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Scroll to top button functionality
+        scrollTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Show/hide scroll to top button based on scroll position
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
         
         // Translations object
         const translations = {
@@ -929,7 +1016,7 @@
                 'experience_title': 'Erfahrung',
                 'experience_text1': 'Mit umfangreicher Erfahrung im internationalen Rechtsbereich spezialisiere ich mich auf die Lösung komplexer Probleme im Zusammenhang mit Einkommenslegalisierung und grenzüberschreitendem Recht.',
                 'experience_text2': 'Meine Praxis umfasst ein breites Spektrum von Rechtsordnungen, was mir ermöglicht, nicht standardmäßige Lösungen für die anspruchsvollsten Kunden zu finden.',
-                'experience_text3': 'Ich habe mit Fällen unterschiedlicher Komplexität in Dutzenden von Ländern auf der ganzen Welt gearbeitet, was mir einzigartige Erfahrungen und ein Verständnis für die Feinheiten des internationalen Rechts vermittelt hat.',
+                'experience_text3': 'Ich habe mit Fällen unterschiedlicher Komplexität in Dutzenden von Ländern auf der ganzen Welt gearbeitet, что mir einzigartige Erfahrungen und ein Verständnis für die Feinheiten des internationalen Rechts vermittelt hat.',
                 'process_title': 'Arbeitsprozess',
                 'step1_title': 'Analyse',
                 'step1_desc': 'Umfassende Untersuchung der Situation und Bestimmung des optimalen Ansatzes',
@@ -938,7 +1025,7 @@
                 'step3_title': 'Umsetzung',
                 'step3_desc': 'Umsetzung des Plans unter Berücksichtigung aller rechtlichen Nuancen',
                 'step4_title': 'Ergebnis',
-                'step4_desc': 'Erreichen der gesetzten Ziele mit maximaler Effizienz',
+                'step4_desc': 'Erreichen der gesetzten Ziele с максимальной эффективностью',
                 'contact_title': 'Kontakte',
                 'contact_text': 'Kontaktieren Sie mich per Telegram für eine Beratung',
                 'telegram_button': 'In Telegram schreiben',
@@ -1010,4 +1097,3 @@
     </script>
 </body>
 </html>
-
