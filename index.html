@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Kimono - эксперт по международному праву. Легализация доходов, стратегическое консультирование и работа с правовыми системами различных юрисдикций.">
     <title>Kimono | Серый юрист</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -12,7 +13,7 @@
             --black: #0a0a0a;
             --dark-gray: #1a1a1a;
             --gray: #2a2a2a;
-            --light-gray: #7a7a7a;
+            --light-gray: #9a9a9a; /* Улучшенная контрастность */
             --white: #e6e6e6;
             --accent: #8a8a8a;
         }
@@ -62,6 +63,7 @@
             font-weight: 600;
             font-size: 1.5rem;
             letter-spacing: 1px;
+            z-index: 1002;
         }
         
         .logo-img {
@@ -149,7 +151,7 @@
         }
         
         /* Mobile menu */
-        .mobile-menu-btn {
+        .burger-menu {
             display: none;
             flex-direction: column;
             justify-content: space-around;
@@ -159,13 +161,109 @@
             border: none;
             cursor: pointer;
             padding: 0;
+            z-index: 1002;
         }
         
-        .mobile-menu-btn span {
+        .burger-menu:focus {
+            outline: none;
+        }
+        
+        .burger-line {
             width: 30px;
-            height: 2px;
+            height: 3px;
             background-color: var(--white);
-            transition: all 0.3s linear;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        
+        .burger-menu.active .burger-line:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .burger-menu.active .burger-line:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .burger-menu.active .burger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+        
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 70%;
+            height: 100vh;
+            background-color: var(--dark-gray);
+            padding: 80px 30px 30px;
+            transition: right 0.3s ease;
+            z-index: 1001;
+            overflow-y: auto;
+        }
+        
+        .mobile-nav.active {
+            right: 0;
+        }
+        
+        .mobile-nav-links {
+            list-style: none;
+        }
+        
+        .mobile-nav-links li {
+            margin-bottom: 20px;
+        }
+        
+        .mobile-nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .mobile-nav-links a i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+        
+        .mobile-language-selector {
+            margin-top: 30px;
+        }
+        
+        .mobile-language-options {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .mobile-language-option {
+            padding: 5px 10px;
+            border: 1px solid var(--accent);
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .mobile-language-option.active {
+            background-color: var(--accent);
+            color: var(--black);
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
         }
         
         /* Hero Section */
@@ -436,27 +534,20 @@
         }
         
         /* Responsive */
-        @media (max-width: 992px) {
+        @media (max-width: 768px) {
             .hero h1 {
-                font-size: 2.2rem;
+                font-size: 2rem;
             }
             
             .step {
                 width: 48%;
-                margin-bottom: 40px;
             }
             
-            .process-steps {
-                justify-content: space-around;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .nav-links {
+            .nav-links, .language-selector {
                 display: none;
             }
             
-            .mobile-menu-btn {
+            .burger-menu {
                 display: flex;
             }
             
@@ -464,20 +555,17 @@
                 font-size: 2rem;
             }
             
+            .footer-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
             .hero {
                 padding: 140px 0 80px;
             }
             
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .services, .experience, .process, .contact {
-                padding: 60px 0;
-            }
-        }
-        
-        @media (max-width: 576px) {
             .step {
                 width: 100%;
             }
@@ -494,91 +582,14 @@
                 font-size: 2.5rem;
             }
             
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-            
-            .hero p {
-                font-size: 1rem;
-            }
-            
-            .section-title {
-                font-size: 1.1rem;
-            }
-            
-            .services-grid {
-                gap: 20px;
-            }
-            
-            .footer-content {
+            .process-steps {
                 flex-direction: column;
-                gap: 20px;
             }
             
-            .language-selector {
-                margin-top: 15px;
+            .step {
+                width: 100%;
+                margin-bottom: 30px;
             }
-        }
-
-        /* Mobile menu styles */
-        .mobile-menu {
-            position: fixed;
-            top: 70px;
-            right: -100%;
-            width: 80%;
-            height: calc(100vh - 70px);
-            background-color: var(--dark-gray);
-            transition: right 0.3s ease;
-            z-index: 999;
-            padding: 20px;
-            overflow-y: auto;
-        }
-        
-        .mobile-menu.show {
-            right: 0;
-        }
-        
-        .mobile-nav-links {
-            list-style: none;
-        }
-        
-        .mobile-nav-links li {
-            margin-bottom: 20px;
-        }
-        
-        .mobile-nav-links a {
-            color: var(--white);
-            text-decoration: none;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-        }
-        
-        .mobile-nav-links a i {
-            margin-right: 10px;
-            color: var(--accent);
-        }
-        
-        .mobile-language-selector {
-            margin-top: 30px;
-        }
-        
-        .mobile-language-options {
-            display: flex;
-            gap: 15px;
-            margin-top: 10px;
-        }
-        
-        .mobile-language-option {
-            padding: 8px 15px;
-            background-color: var(--gray);
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        
-        .mobile-language-option.active {
-            background-color: var(--accent);
-            color: var(--black);
         }
     </style>
 </head>
@@ -588,44 +599,44 @@
         <div class="container header-container">
             <a href="#" class="logo">
                 <img src="logo.png" alt="Kimono Logo" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
-                <span style="display:none;"><i class="fas fa-scale-balanced"></i>KIMONO</span>
+                <span style="display:none;"><i class="fas fa-scale-balanced" aria-hidden="true"></i>KIMONO</span>
             </a>
             <div class="nav-container">
                 <ul class="nav-links">
-                    <li><a href="#services"><i class="fas fa-briefcase"></i><span data-translate="nav_services">Услуги</span></a></li>
-                    <li><a href="#experience"><i class="fas fa-star"></i><span data-translate="nav_experience">Опыт</span></a></li>
-                    <li><a href="#process"><i class="fas fa-gears"></i><span data-translate="nav_process">Процесс</span></a></li>
-                    <li><a href="#contact"><i class="fas fa-phone"></i><span data-translate="nav_contact">Контакты</span></a></li>
+                    <li><a href="#services"><i class="fas fa-briefcase" aria-hidden="true"></i><span data-translate="nav_services">Услуги</span></a></li>
+                    <li><a href="#experience"><i class="fas fa-star" aria-hidden="true"></i><span data-translate="nav_experience">Опыт</span></a></li>
+                    <li><a href="#process"><i class="fas fa-gears" aria-hidden="true"></i><span data-translate="nav_process">Процесс</span></a></li>
+                    <li><a href="#contact"><i class="fas fa-phone" aria-hidden="true"></i><span data-translate="nav_contact">Контакты</span></a></li>
                 </ul>
                 <div class="language-selector" id="languageSelector">
                     <div class="current-language">
                         <span>RU</span>
                     </div>
                     <div class="language-dropdown" id="languageDropdown">
-                        <div class="language-option" data-lang="ru"><i class="fas fa-check"></i>Русский</div>
-                        <div class="language-option" data-lang="en"><i class="fas fa-check"></i>English</div>
-                        <div class="language-option" data-lang="de"><i class="fas fa-check"></i>Deutsch</div>
+                        <div class="language-option" data-lang="ru"><i class="fas fa-check" aria-hidden="true"></i>Русский</div>
+                        <div class="language-option" data-lang="en"><i class="fas fa-check" aria-hidden="true"></i>English</div>
+                        <div class="language-option" data-lang="de"><i class="fas fa-check" aria-hidden="true"></i>Deutsch</div>
                     </div>
                 </div>
-                <button class="mobile-menu-btn" id="mobileMenuBtn">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                <button class="burger-menu" id="burgerMenu" aria-label="Открыть меню">
+                    <span class="burger-line"></span>
+                    <span class="burger-line"></span>
+                    <span class="burger-line"></span>
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav" id="mobileNav">
         <ul class="mobile-nav-links">
-            <li><a href="#services" id="mobileServicesLink"><i class="fas fa-briefcase"></i><span data-translate="nav_services">Услуги</span></a></li>
-            <li><a href="#experience" id="mobileExperienceLink"><i class="fas fa-star"></i><span data-translate="nav_experience">Опыт</span></a></li>
-            <li><a href="#process" id="mobileProcessLink"><i class="fas fa-gears"></i><span data-translate="nav_process">Процесс</span></a></li>
-            <li><a href="#contact" id="mobileContactLink"><i class="fas fa-phone"></i><span data-translate="nav_contact">Контакты</span></a></li>
+            <li><a href="#services" data-translate="nav_services"><i class="fas fa-briefcase" aria-hidden="true"></i>Услуги</a></li>
+            <li><a href="#experience" data-translate="nav_experience"><i class="fas fa-star" aria-hidden="true"></i>Опыт</a></li>
+            <li><a href="#process" data-translate="nav_process"><i class="fas fa-gears" aria-hidden="true"></i>Процесс</a></li>
+            <li><a href="#contact" data-translate="nav_contact"><i class="fas fa-phone" aria-hidden="true"></i>Контакты</a></li>
         </ul>
         <div class="mobile-language-selector">
-            <p>Язык:</p>
+            <p data-translate="choose_language">Выберите язык:</p>
             <div class="mobile-language-options">
                 <div class="mobile-language-option active" data-lang="ru">RU</div>
                 <div class="mobile-language-option" data-lang="en">EN</div>
@@ -633,103 +644,107 @@
             </div>
         </div>
     </div>
+    <div class="overlay" id="overlay"></div>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-icon">
-                <i class="fas fa-balance-scale-left"></i>
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-icon">
+                    <i class="fas fa-balance-scale-left" aria-hidden="true"></i>
+                </div>
+                <h1 data-translate="hero_title">Kimono: Эксперт по международному праву</h1>
+                <p data-translate="hero_desc">Легализация доходов, стратегическое консультирование и работа с правовыми системами различных юрисдикций. Решаем задачи любой сложности.</p>
             </div>
-            <h1 data-translate="hero_title">Kimono: Эксперт по международному праву</h1>
-            <p data-translate="hero_desc">Легализация доходов, стратегическое консультирование и работа с правовыми системами различных юрисдикций. Решаем задачи любой сложности.</p>
-        </div>
-    </section>
+        </section>
 
-    <!-- Services Section -->
-    <section id="services" class="services">
-        <div class="container">
-            <h2 class="section-title"><i class="fas fa-briefcase"></i><span data-translate="services_title">Услуги</span></h2>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-file-contract"></i>
+        <!-- Services Section -->
+        <section id="services" class="services">
+            <div class="container">
+                <h2 class="section-title"><i class="fas fa-briefcase" aria-hidden="true"></i><span data-translate="services_title">Услуги</span></h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-file-contract" aria-hidden="true"></i>
+                        </div>
+                        <h3><i class="fas fa-minus" aria-hidden="true"></i><span data-translate="service1_title">Легализация доходов</span></h3>
+                        <p data-translate="service1_desc">Комплексные решения по легализации доходов из различных источников с учетом международного законодательства.</p>
                     </div>
-                    <h3><i class="fas fa-minus"></i><span data-translate="service1_title">Легализация доходов</span></h3>
-                    <p data-translate="service1_desc">Комплексные решения по легализации доходов из различных источников с учетом международного законодательства.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-handshake"></i>
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-handshake" aria-hidden="true"></i>
+                        </div>
+                        <h3><i class="fas fa-minus" aria-hidden="true"></i><span data-translate="service2_title">Стратегическое консультирование</span></h3>
+                        <p data-translate="service2_desc">Экспертная оценка ситуаций и разработка стратегий с учетом законодательств разных стран.</p>
                     </div>
-                    <h3><i class="fas fa-minus"></i><span data-translate="service2_title">Стратегическое консультирование</span></h3>
-                    <p data-translate="service2_desc">Экспертная оценка ситуаций и разработка стратегий с учетом законодательств разных стран.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-globe"></i>
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-globe" aria-hidden="true"></i>
+                        </div>
+                        <h3><i class="fas fa-minus" aria-hidden="true"></i><span data-translate="service3_title">Международное право</span></h3>
+                        <p data-translate="service3_desc">Глубокая работа с правовыми системами различных государств и международными нормативами.</p>
                     </div>
-                    <h3><i class="fas fa-minus"></i><span data-translate="service3_title">Международное право</span></h3>
-                    <p data-translate="service3_desc">Глубокая работа с правовыми системами различных государств и международными нормативами.</p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Experience Section -->
-    <section id="experience" class="experience">
-        <div class="container">
-            <h2 class="section-title"><i class="fas fa-star"></i><span data-translate="experience_title">Опыт</span></h2>
-            <div class="experience-content">
-                <p><i class="fas fa-arrow-right"></i><span data-translate="experience_text1">С большим опытом работы в международной юридической сфере, я специализируюсь на решении комплексных задач, связанных с легализацией доходов и трансграничным правом.</span></p>
-                <p><i class="fas fa-arrow-right"></i><span data-translate="experience_text2">Моя практика охватывает широкий спектр юрисдикций, что позволяет находить нестандартные решения для самых требовательных клиентов.</span></p>
-                <p><i class="fas fa-arrow-right"></i><span data-translate="experience_text3">Я работал с делами различной сложности в десятках стран мира, что дало уникальный опыт и понимание тонкостей международного законодательства.</span></p>
+        <!-- Experience Section -->
+        <section id="experience" class="experience">
+            <div class="container">
+                <h2 class="section-title"><i class="fas fa-star" aria-hidden="true"></i><span data-translate="experience_title">Опыт</span></h2>
+                <div class="experience-content">
+                    <p><i class="fas fa-arrow-right" aria-hidden="true"></i><span data-translate="experience_text1">С большим опытом работы в международной юридической сфере, я специализируюсь на решении комплексных задач, связанных с легализацией доходов и трансграничным правом.</span></p>
+                    <p><i class="fas fa-arrow-right" aria-hidden="true"></i><span data-translate="experience_text2">Моя практика охватывает широкий спектр юрисдикций, что позволяет находить нестандартные решения для самых требовательных клиентов.</span></p>
+                    <p><i class="fas fa-arrow-right" aria-hidden="true"></i><span data-translate="experience_text3">Я работал с делами различной сложности в десятках стран мира, что дало уникальный опыт и понимание тонкостей международного законодательства.</span></p>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Process Section -->
-    <section id="process" class="process">
-        <div class="container">
-            <h2 class="section-title"><i class="fas fa-gears"></i><span data-translate="process_title">Процесс работы</span></h2>
-            <div class="process-steps">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <h3><i class="fas fa-search"></i><span data-translate="step1_title">Анализ</span></h3>
-                    <p data-translate="step1_desc">Всестороннее изучение ситуации и определение оптимального подхода</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <h3><i class="fas fa-chess"></i><span data-translate="step2_title">Стратегия</span></h3>
-                    <p data-translate="step2_desc">Разработка индивидуальной стратегии с учетом современных реалий</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <h3><i class="fas fa-cogs"></i><span data-translate="step3_title">Реализация</span></h3>
-                    <p data-translate="step3_desc">Воплощение плана с учетом всех юридических нюансов</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <h3><i class="fas fa-trophy"></i><span data-translate="step4_title">Результат</span></h3>
-                    <p data-translate="step4_desc">Достижение поставленных целей с максимальной эффективностью</p>
+        <!-- Process Section -->
+        <section id="process" class="process">
+            <div class="container">
+                <h2 class="section-title"><i class="fas fa-gears" aria-hidden="true"></i><span data-translate="process_title">Процесс работы</span></h2>
+                <div class="process-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h3><i class="fas fa-search" aria-hidden="true"></i><span data-translate="step1_title">Анализ</span></h3>
+                        <p data-translate="step1_desc">Всестороннее изучение ситуации и определение оптимального подхода</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h3><i class="fas fa-chess" aria-hidden="true"></i><span data-translate="step2_title">Стратегия</span></h3>
+                        <p data-translate="step2_desc">Разработка индивидуальной стратегии с учетом современных реалий</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h3><i class="fas fa-cogs" aria-hidden="true"></i><span data-translate="step3_title">Реализация</span></h3>
+                        <p data-translate="step3_desc">Воплощение плана с учетом всех юридических нюансов</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <h3><i class="fas fa-trophy" aria-hidden="true"></i><span data-translate="step4_title">Результат</span></h3>
+                        <p data-translate="step4_desc">Достижение поставленных целей с максимальной эффективностью</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="contact-icon">
-                <i class="fas fa-paper-plane"></i>
+        <!-- Contact Section -->
+        <section id="contact" class="contact">
+            <div class="container">
+                <div class="contact-icon">
+                    <i class="fas fa-paper-plane" aria-hidden="true"></i>
+                </div>
+                <h2 class="section-title"><i class="fas fa-phone" aria-hidden="true"></i><span data-translate="contact_title">Контакты</span></h2>
+                <p data-translate="contact_text">Свяжитесь со мной через Telegram для консультации</p>
+                <a href="https://t.me/exras" class="telegram-link" id="telegramLink">
+                    <i class="fab fa-telegram" aria-hidden="true"></i>
+                    <span data-translate="telegram_button">Написать в Telegram</span>
+                </a>
             </div>
-            <h2 class="section-title"><i class="fas fa-phone"></i><span data-translate="contact_title">Контакты</span></h2>
-            <p data-translate="contact_text">Свяжитесь со мной через Telegram для консультации</p>
-            <a href="https://t.me/exras" class="telegram-link" id="telegramLink">
-                <i class="fab fa-telegram"></i>
-                <span data-translate="telegram_button">Написать в Telegram</span>
-            </a>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <!-- Footer -->
     <footer>
@@ -737,9 +752,9 @@
             <div class="footer-content">
                 <a href="#" class="logo">
                     <img src="logo.png" alt="Kimono Logo" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
-                    <span style="display:none;"><i class="fas fa-scale-balanced"></i>KIMONO</span>
+                    <span style="display:none;"><i class="fas fa-scale-balanced" aria-hidden="true"></i>KIMONO</span>
                 </a>
-                <div class="copyright"><i class="far fa-copyright"></i><span data-translate="copyright"> 2025 Kimono. Все права защищены.</span></div>
+                <div class="copyright"><i class="far fa-copyright" aria-hidden="true"></i><span data-translate="copyright"> 2025 Kimono. Все права защищены.</span></div>
             </div>
         </div>
     </footer>
@@ -749,26 +764,30 @@
         const languageSelector = document.getElementById('languageSelector');
         const languageDropdown = document.getElementById('languageDropdown');
         const telegramLink = document.getElementById('telegramLink');
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
+        const burgerMenu = document.getElementById('burgerMenu');
+        const mobileNav = document.getElementById('mobileNav');
+        const overlay = document.getElementById('overlay');
         
+        // Load saved language or default to Russian
+        const savedLanguage = localStorage.getItem('selectedLanguage') || 'ru';
+        changeLanguage(savedLanguage);
+        document.querySelector('.current-language span').textContent = savedLanguage.toUpperCase();
+        
+        // Update mobile language selector
+        document.querySelectorAll('.mobile-language-option').forEach(option => {
+            if (option.getAttribute('data-lang') === savedLanguage) {
+                option.classList.add('active');
+            } else {
+                option.classList.remove('active');
+            }
+        });
+        
+        // Desktop language selector
         languageSelector.addEventListener('click', function() {
             languageDropdown.classList.toggle('show');
         });
         
-        // Mobile menu functionality
-        mobileMenuBtn.addEventListener('click', function() {
-            mobileMenu.classList.toggle('show');
-        });
-        
-        // Close mobile menu when clicking on links
-        document.querySelectorAll('.mobile-nav-links a').forEach(link => {
-            link.addEventListener('click', function() {
-                mobileMenu.classList.remove('show');
-            });
-        });
-        
-        // Mobile language selection
+        // Mobile language selector
         document.querySelectorAll('.mobile-language-option').forEach(option => {
             option.addEventListener('click', function() {
                 const lang = this.getAttribute('data-lang');
@@ -780,8 +799,11 @@
                 });
                 this.classList.add('active');
                 
-                // Update desktop language selector
-                document.querySelector('.current-language span').textContent = lang.toUpperCase();
+                // Save to localStorage
+                localStorage.setItem('selectedLanguage', lang);
+                
+                // Close mobile menu
+                closeMobileMenu();
             });
         });
         
@@ -790,16 +812,41 @@
             if (!languageSelector.contains(event.target)) {
                 languageDropdown.classList.remove('show');
             }
+        });
+        
+        // Mobile menu functionality
+        burgerMenu.addEventListener('click', function() {
+            this.classList.toggle('active');
+            mobileNav.classList.toggle('active');
+            overlay.classList.toggle('active');
             
-            // Close mobile menu when clicking outside
-            if (!mobileMenu.contains(event.target) && !mobileMenuBtn.contains(event.target) && mobileMenu.classList.contains('show')) {
-                mobileMenu.classList.remove('show');
+            // Prevent body scrolling when menu is open
+            if (mobileNav.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
             }
         });
+        
+        // Close mobile menu when clicking on overlay
+        overlay.addEventListener('click', closeMobileMenu);
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.mobile-nav-links a').forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+        
+        function closeMobileMenu() {
+            burgerMenu.classList.remove('active');
+            mobileNav.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
         
         // Translations object
         const translations = {
             'ru': {
+                'choose_language': 'Выберите язык:',
                 'nav_services': 'Услуги',
                 'nav_experience': 'Опыт',
                 'nav_process': 'Процесс',
@@ -829,9 +876,10 @@
                 'contact_title': 'Контакты',
                 'contact_text': 'Свяжитесь со мной через Telegram для консультации',
                 'telegram_button': 'Написать в Telegram',
-                'copyright': ' 2025 Kimono. Все права защищены.'
+                'copyright': '© 2025 Kimono. Все права защищены.'
             },
             'en': {
+                'choose_language': 'Choose language:',
                 'nav_services': 'Services',
                 'nav_experience': 'Experience',
                 'nav_process': 'Process',
@@ -861,9 +909,10 @@
                 'contact_title': 'Contacts',
                 'contact_text': 'Contact me via Telegram for consultation',
                 'telegram_button': 'Write to Telegram',
-                'copyright': ' 2025 Kimono. All rights reserved.'
+                'copyright': '© 2025 Kimono. All rights reserved.'
             },
             'de': {
+                'choose_language': 'Sprache wählen:',
                 'nav_services': 'Dienstleistungen',
                 'nav_experience': 'Erfahrung',
                 'nav_process': 'Prozess',
@@ -893,11 +942,11 @@
                 'contact_title': 'Kontakte',
                 'contact_text': 'Kontaktieren Sie mich per Telegram für eine Beratung',
                 'telegram_button': 'In Telegram schreiben',
-                'copyright': ' 2025 Kimono. Alle Rechte vorbehalten.'
+                'copyright': '© 2025 Kimono. Alle Rechte vorbehalten.'
             }
         };
         
-        // Language selection
+        // Language selection for desktop
         document.querySelectorAll('.language-option').forEach(option => {
             option.addEventListener('click', function() {
                 const lang = this.getAttribute('data-lang');
@@ -905,19 +954,23 @@
                 languageDropdown.classList.remove('show');
                 document.querySelector('.current-language span').textContent = lang.toUpperCase();
                 
+                // Update mobile language selector
+                document.querySelectorAll('.mobile-language-option').forEach(opt => {
+                    if (opt.getAttribute('data-lang') === lang) {
+                        opt.classList.add('active');
+                    } else {
+                        opt.classList.remove('active');
+                    }
+                });
+                
                 // Update checkmarks
                 document.querySelectorAll('.language-option i').forEach(icon => {
                     icon.style.visibility = 'hidden';
                 });
                 this.querySelector('i').style.visibility = 'visible';
                 
-                // Update mobile language selector
-                document.querySelectorAll('.mobile-language-option').forEach(opt => {
-                    opt.classList.remove('active');
-                    if (opt.getAttribute('data-lang') === lang) {
-                        opt.classList.add('active');
-                    }
-                });
+                // Save to localStorage
+                localStorage.setItem('selectedLanguage', lang);
             });
         });
         
@@ -953,7 +1006,7 @@
         document.querySelectorAll('.language-option i').forEach(icon => {
             icon.style.visibility = 'hidden';
         });
-        document.querySelector('.language-option[data-lang="ru"] i').style.visibility = 'visible';
+        document.querySelector(`.language-option[data-lang="${savedLanguage}"] i`).style.visibility = 'visible';
     </script>
 </body>
 </html>
