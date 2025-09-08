@@ -41,7 +41,7 @@ const translations = {
         'contact_title': 'Контакты',
         'contact_text': 'Свяжитесь со мной через Telegram для консультации',
         'telegram_button': 'Написать в Telegram',
-        'copyright': '© 2025 Kimono. Все права защищены.'
+        'copyright': ' 2025 Kimono. Все права защищены.'
     },
     'en': {
         'choose_language': 'Choose language:',
@@ -74,7 +74,7 @@ const translations = {
         'contact_title': 'Contacts',
         'contact_text': 'Contact me via Telegram for consultation',
         'telegram_button': 'Write to Telegram',
-        'copyright': '© 2025 Kimono. All rights reserved.'
+        'copyright': ' 2025 Kimono. All rights reserved.'
     },
     'de': {
         'choose_language': 'Sprache wählen:',
@@ -107,7 +107,7 @@ const translations = {
         'contact_title': 'Kontakte',
         'contact_text': 'Kontaktieren Sie mich per Telegram für eine Beratung',
         'telegram_button': 'In Telegram schreiben',
-        'copyright': '© 2025 Kimono. Alle Rechte vorbehalten.'
+        'copyright': ' 2025 Kimono. Alle Rechte vorbehalten.'
     }
 };
 
